@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Your Wishlist</title>
@@ -16,6 +16,15 @@
     <input type="text" name="link" id="link"><br><br>
     <input type="submit">
 </form>
-
+<br><br>
+    <div class="wishes">
+        <table>
+            <tr th:each="gift: ${newGift}">
+                <td th:text="${gift.name}"/>
+                <td th:text="${gift.price}"/>
+                <td th:text="${gift.url}"/>
+            </tr>
+        </table>
+    </div>
 </body>
 </html>

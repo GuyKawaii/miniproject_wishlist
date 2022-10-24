@@ -37,4 +37,13 @@ public class Gift {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    @Override
+    public String toString() {
+        return "Gift{" +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", url='" + url + '\'' +
+                '}';
+    }
 }

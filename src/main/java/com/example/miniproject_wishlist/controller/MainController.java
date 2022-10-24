@@ -1,6 +1,7 @@
 package com.example.miniproject_wishlist.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
@@ -16,6 +17,10 @@ public class MainController {
     @PostMapping("/create")
     public String createUser(WebRequest dataFromForm) {
         //Create user i database with name and email
+
+
+        //test
+        model.addAttribute("list1", "MyWishlist");
 
         return "myWishlists";
     }
@@ -35,9 +40,16 @@ public class MainController {
     }
 
     @PostMapping("/find")
-    public String findWishlist(WebRequest dataFromForm) {
+    public String findWishlistAsGuest(WebRequest dataFromForm) {
         //Find list by id
 
         return "";
+    }
+
+    @PostMapping("/findMyWishlist")
+    public String findWishlistAsUser() {
+        //Find the list that the user has clicked on
+
+        return "myListOfGifts";
     }
 }

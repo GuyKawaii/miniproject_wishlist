@@ -6,6 +6,12 @@ public class Gift {
     private double price;
     private String url;
 
+    public Gift(String name, double price, String url) {
+        this.name = name;
+        this.price = price;
+        this.url = url;
+    }
+
     public int getgID() {
         return gID;
     }

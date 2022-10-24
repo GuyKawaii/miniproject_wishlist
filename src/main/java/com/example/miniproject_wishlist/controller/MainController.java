@@ -53,7 +53,7 @@ public class MainController {
     }
 
     @PostMapping("/findMyWishlist")
-    public String findWishlistAsUser() {
+    public String findWishlistAsUser(Model model) {
         //Find the list that the user has clicked on
 
 

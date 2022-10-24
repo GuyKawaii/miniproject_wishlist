@@ -15,7 +15,7 @@ public class MainController {
     }
 
     @PostMapping("/create")
-    public String createUser(WebRequest dataFromForm) {
+    public String createUser(WebRequest dataFromForm, Model model) {
         //Create user i database with name and email
 
 

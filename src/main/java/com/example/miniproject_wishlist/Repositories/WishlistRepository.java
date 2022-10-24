@@ -63,15 +63,29 @@ public class WishlistRepository {
         return true;
     }
 
-    // create gift
-    public void createGift(Gift gift) {
+    // create gift - ONLY ALLOWED TO CREATE TO A GIFT_LIST
+    public boolean createGift(Gift gift, GiftList giftList) {
+
+        // TODO Tweak and recheck
+        PreparedStatement psts = null;
+
         try {
-            PreparedStatement psts = con.prepareStatement("INSERT INTO gifts (giftID, listID, giftName, price, url) VALUES (?,?,?,?,?)");
-            psts.setInt(1, gift.getGiftID());
-            psts.setInt(2, gift.getGiftID());
-            psts.setString(3, gift.getGiftName());
-            psts.setDouble(4,gift.getPrice());
-            psts.setString(5,gift.getUrl());
+            // with or without predefined giftID
+            if (gift.getGiftID() == null) {
+                psts = con.prepareStatement("INSERT INTO gifts (giftName, price, url) VALUES (?,?,?)");
+                psts.setString(1, gift.getGiftName());
+                psts.setDouble(2, gift.getPrice());
+                psts.setString(3, gift.getUrl());
+
+            } else {
+                psts = con.prepareStatement("INSERT INTO gifts (listID, giftName, price, url) VALUES (?,?,?,?)");
+                psts.setInt(1, giftList.getListID());
+                psts.setString(2, gift.getGiftName());
+                psts.setDouble(3, gift.getPrice());
+                psts.setString(4, gift.getUrl());
+            }
+
+            psts.executeUpdate();
         } catch (SQLException e) {
             return false;
         }

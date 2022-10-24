@@ -2,11 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Hello Spring world</title>
+    <title>Home</title>
 </head>
 <body>
 
-<h1>Hello spring world</h1>\
+<h1>Welcome to the amazing website where dreams come true!</h1><br>
+
+
+<form method="POST" action="/create">
+    <h3>Create a user:</h3>
+    <label for="name">Please enter your name</label><br>
+    <input type="text" name="name" id="name" required><br><br>
+    <label for="email">Please enter your e-mail</label><br>
+    <input type="text" name="email" id="email" pattern=".*[@]+.*" required/><br><br>
+    <input type="submit">
+</form>
+<br><br>
+<form method="POST" action="/find">
+    <h3>Find a wishlist:</h3>
+    <label for="listId">Please enter list id</label><br>
+    <input type="text" name="listId" id="listId" required><br><br>
+    <input type="submit">
+</form>
 
 </body>
 </html>

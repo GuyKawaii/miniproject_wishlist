@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Wishlist</title>
+</head>
+<body>
+
+<form method="POST" action="/createGift">
+    <h4>Create a wish:</h4>
+    <label for="name">Please enter the item name</label><br>
+    <input type="text" name="name" required/> <br>
+    <label for="price">Please enter the price of the item</label><br>
+    <input type="number" name="price" id="price"><br>
+    <label for="link">Please enter the link of the item</label><br>
+    <input type="text" name="link" id="link"><br><br>
+    <input type="submit">
+</form>
+<br><br>
+    <div class="wishes">
+        <table>
+            <tr th:each="gift: ${newGift}">
+                <td th:text="${gift.name}"/>
+                <td th:text="${gift.price}"/>
+                <td th:text="${gift.url}"/>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

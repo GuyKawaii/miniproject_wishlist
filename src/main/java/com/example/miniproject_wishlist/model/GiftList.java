@@ -1,31 +1,45 @@
 package com.example.miniproject_wishlist.model;
 
 public class GiftList {
-    private int gID;
-    private int email;
-    private String name;
+    private Integer listID;
+    private String email;
+    private String listName;
 
-    public int getgID() {
-        return gID;
+    // id provided
+    public GiftList(int listID, String email, String listName) {
+        setListID(listID);
+        setEmail(email);
+        setListName(listName);
     }
 
-    public void setgID(int gID) {
-        this.gID = gID;
+    // no id provided
+    public GiftList(String email, String listName) {
+        listID = null;
+        setEmail(email);
+        setListName(listName);
     }
 
-    public int getEmail() {
+    public Integer getListID() {
+        return listID;
+    }
+
+    public void setListID(int listID) {
+        this.listID = listID;
+    }
+
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(int email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    public String getName() {
-        return name;
+    public String getListName() {
+        return listName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setListName(String listName) {
+        this.listName = listName;
     }
 }

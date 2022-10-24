@@ -18,7 +18,7 @@ public class DatabaseManager {
         if(conn != null){
             return conn;
         }
-        hostname = "jdbc:mysql://alberto.mysql.database.azure.com :3306/kea";
+        hostname = "jdbc:mysql://alberto.mysql.database.azure.com :3306/wishlist";
         username = "Workswell";
         password = "Th1sBetterW0rk!";
         try {

@@ -61,7 +61,4 @@ public class Gift {
                 '}';
     }
 
-    public Integer getListID() {
-
-    }
 }

@@ -14,7 +14,7 @@ import java.util.List;
 public class WishlistRepository {
     private Connection con = DatabaseManager.getConn();
 
-    // create user
+    // ### user ###
     public boolean createUser(User user) {
         // return true or false if inserted
 
@@ -35,8 +35,46 @@ public class WishlistRepository {
         return true;
     }
 
-    // todo add ternary operator for empty id
-    // create list - ONLY ALLOWED add list to user
+    public boolean deleteUser(String testEmail) {
+        try {
+            PreparedStatement psts = con.prepareStatement("DELETE FROM users WHERE email = ?;");
+            psts.setString(1, testEmail);
+
+            psts.executeUpdate();
+
+        } catch (SQLException e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public User getUser(String email) {
+        User user = null;
+
+        try {
+            PreparedStatement psts = con.prepareStatement("SELECT * FROM users WHERE email = ?;");
+            psts.setString(1, email);
+            ResultSet resultSet = psts.executeQuery();
+
+            // add parameters
+            while(resultSet.next()) {
+                user =  new User(
+                        resultSet.getString("email"),
+                        resultSet.getString("userName"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e);
+            return null;
+        }
+
+        return user;
+    }
+
+
+    // ### giftList ###
+    // ONLY ALLOWED to add list to already existing user
     public boolean createGiftList(GiftList giftList) {
         PreparedStatement psts = null;
 
@@ -63,7 +101,72 @@ public class WishlistRepository {
         return true;
     }
 
-    // create gift - ONLY ALLOWED TO CREATE TO A GIFT_LIST
+    public boolean deleteGiftList(int giftListID) {
+        try {
+            PreparedStatement psts = con.prepareStatement("DELETE FROM giftlists WHERE listID = ?;");
+            psts.setInt(1, giftListID);
+
+            psts.executeUpdate();
+
+        } catch (SQLException e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public GiftList getGiftList(int giftListID) {
+        GiftList giftList = null;
+
+        try {
+            PreparedStatement psts = con.prepareStatement("SELECT * FROM giftlists WHERE listID = ?;");
+            psts.setInt(1, giftListID);
+            ResultSet resultSet = psts.executeQuery();
+
+            // add parameters listID, String email, String listName
+            while(resultSet.next()) {
+                giftList =  new GiftList(
+                        resultSet.getInt("listID"),
+                        resultSet.getString("email"),
+                        resultSet.getString("listName"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e);
+            return null;
+        }
+
+        return giftList;
+    }
+
+    public List<Gift> returnGiftsFromList(int listID) {
+        ArrayList<Gift> gifts = new ArrayList<>();
+
+        try {
+            PreparedStatement psts = con.prepareStatement("SELECT * FROM gifts WHERE listID = ?;");
+            psts.setInt(1, listID);
+            ResultSet resultSet = psts.executeQuery();
+
+            while (resultSet.next()) {
+                gifts.add(new Gift(
+                        resultSet.getInt("giftID"),
+                        resultSet.getString("giftName"),
+                        resultSet.getDouble("price"),
+                        resultSet.getString("url")
+                ));
+            }
+
+        } catch (SQLException e) {
+            return null;
+        }
+
+        return gifts;
+    }
+
+
+
+    // ### gift ###
+    // ONLY ALLOWED to add gift to already existing giftList
     public boolean createGift(Gift gift, GiftList giftList) {
 
         // TODO Tweak and recheck
@@ -92,9 +195,6 @@ public class WishlistRepository {
 
         return true;
     }
-
-
-    // delete gift
     public boolean deleteGift(String giftID) {
         try {
             PreparedStatement psts = con.prepareStatement("DELETE FROM gifts WHERE giftID = ?;");
@@ -109,46 +209,33 @@ public class WishlistRepository {
         return true;
     }
 
-    // delete giftList
-    public boolean deleteGiftList(String giftListID) {
-        try {
-            PreparedStatement psts = con.prepareStatement("DELETE FROM giftlists WHERE listID = ?;");
-            psts.setString(1, giftListID);
-
-            psts.executeUpdate();
-
-        } catch (SQLException e) {
-            return false;
-        }
-
-        return true;
-    }
-
-    // return all gifts for giftList
-    public List<Gift> returnGiftsFromList(int listID) {
-        ArrayList<Gift> gifts = new ArrayList<>();
+    public Gift getGift(int giftID) {
+        Gift gift = null;
 
         try {
-            PreparedStatement psts = con.prepareStatement("SELECT * FROM gifts WHERE listID = ?;");
-            psts.setInt(1, listID);
+            PreparedStatement psts = con.prepareStatement("SELECT * FROM gifts WHERE giftID = ?;");
+            psts.setInt(1, giftID);
             ResultSet resultSet = psts.executeQuery();
 
-            while (resultSet.next()) {
-                gifts.add(new Gift(
+            // add parameters giftID, String giftName, double price, String url
+            while(resultSet.next()) {
+
+                gift =  new Gift(
                         resultSet.getInt("giftID"),
                         resultSet.getString("giftName"),
                         resultSet.getDouble("price"),
-                        resultSet.getString("url")
-                ));
+                        resultSet.getString("url"));
             }
 
         } catch (SQLException e) {
+            System.out.println(e);
             return null;
         }
 
-        return gifts;
+        return gift;
     }
 
+    // todo create method to get all giftLists for user
 //    // return all giftLists for user
 //    public List<GiftList> returnAllGiftListsFromEmail(String email) {
 //        List<GiftList> giftLists = new ArrayList<>();

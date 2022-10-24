@@ -6,7 +6,14 @@ public class Gift {
     private double price;
     private String url;
 
-    Gift(int giftID, String giftName, double price){
+    public Gift(String giftName, double price, String url){
+        giftID = null;
+        setGiftName(giftName);
+        setPrice(price);
+        setUrl(url);
+    }
+
+    public Gift(int giftID, String giftName, double price, String url){
         setGiftID(giftID);
         setGiftName(giftName);
         setPrice(price);

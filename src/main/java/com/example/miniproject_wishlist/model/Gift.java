@@ -1,7 +1,7 @@
 package com.example.miniproject_wishlist.model;
 
 public class Gift {
-    private int giftID;
+    private Integer giftID;
     private String giftName;
     private double price;
     private String url;
@@ -10,9 +10,10 @@ public class Gift {
         setGiftID(giftID);
         setGiftName(giftName);
         setPrice(price);
+        setUrl(url);
     }
 
-    public int getGiftID() {
+    public Integer getGiftID() {
         return giftID;
     }
 
@@ -51,5 +52,9 @@ public class Gift {
                 ", price=" + price +
                 ", url='" + url + '\'' +
                 '}';
+    }
+
+    public Integer getListID() {
+
     }
 }

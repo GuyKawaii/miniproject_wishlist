@@ -19,6 +19,8 @@ INSERT INTO gifts (giftID, listID, giftName, price, url) VALUES (4, 2, 'item 4',
 INSERT INTO giftlists (email, listName) VALUES ('email b', 'list 2');
 
 
+SELECT * FROM gifts WHERE listID = 1;
+
 
 -- delete gifts
 DELETE FROM gifts WHERE giftID=10;

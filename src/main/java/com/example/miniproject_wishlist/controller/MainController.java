@@ -78,7 +78,7 @@ public class MainController {
 
         model.addAttribute("email", email);
 
-        return "redirect:/myWishlists";
+        return "redirect:/myWishlists?email=" + email;
     }
 
 
@@ -112,10 +112,12 @@ public class MainController {
         //Find the list that the user has clicked on
 
 
-        //test
+        //test shows gifts in myLists
+        /*
         List<Gift> gifts = wishlistRepository.returnGiftsFromList(2);
         model.addAttribute("newGift", gifts);
-        return "myListOfGifts";
+         */
+        return "redirect:/myGifts?listID=" + listID;
     }
 
 

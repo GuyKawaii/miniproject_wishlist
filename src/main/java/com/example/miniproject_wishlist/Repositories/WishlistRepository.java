@@ -235,27 +235,26 @@ public class WishlistRepository {
         return gift;
     }
 
-    // todo create method to get all giftLists for user
-//    // return all giftLists for user
-//    public List<GiftList> returnAllGiftListsFromEmail(String email) {
-//        List<GiftList> giftLists = new ArrayList<>();
-//        try {
-//            PreparedStatement psts = con.prepareStatement("SELECT * FROM giftlists WHERE email = ?");
-//            psts.setString(1, email);
-//            ResultSet resultset = psts.executeQuery();
-//
-//            while (resultset.next()) {
-//                giftLists.add(new GiftList(
-//                        resultset.getInt("email"),
-//                        resultset.getString("listName"),
-//                ));
-//            }
-//
-//        } catch (Exception e) {
-//            System.out.print("SQL exception");
-//        }
-//        return giftLists;
-//
-//    }
+    // return all giftLists for user
+    public List<GiftList> returnAllGiftListsFromEmail(String email) {
+        List<GiftList> giftLists = new ArrayList<>();
+        try {
+            PreparedStatement psts = con.prepareStatement("SELECT * FROM giftlists WHERE email = ?");
+            psts.setString(1, email);
+            ResultSet resultset = psts.executeQuery();
+
+            while (resultset.next()) {
+                giftLists.add(new GiftList(
+                        resultset.getString("email"),
+                        resultset.getString("listName")
+                ));
+            }
+
+        } catch (Exception e) {
+            System.out.print("SQL exception");
+        }
+        return giftLists;
+
+    }
 
 }

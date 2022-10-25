@@ -196,10 +196,10 @@ public class WishlistRepository {
 
         return true;
     }
-    public boolean deleteGift(String giftID) {
+    public boolean deleteGift(int giftID) {
         try {
             PreparedStatement psts = con.prepareStatement("DELETE FROM gifts WHERE giftID = ?;");
-            psts.setString(1, giftID);
+            psts.setInt(1, giftID);
 
             psts.executeUpdate();
 

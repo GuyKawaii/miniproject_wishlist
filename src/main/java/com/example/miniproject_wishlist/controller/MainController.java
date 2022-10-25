@@ -69,10 +69,6 @@ public class MainController {
     @PostMapping("/myGifts/deleteGift")
     public String deleteGift(WebRequest dataFromForm, Model model) {
 
-//        String giftName = dataFromForm.getParameter("name");
-//        double giftPrice = Double.parseDouble(Objects.requireNonNull(dataFromForm.getParameter("price")));
-//        String link = dataFromForm.getParameter("link");
-
         int giftID = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("giftID")));
         int listID = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("oldListID")));
         

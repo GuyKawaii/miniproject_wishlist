@@ -38,13 +38,16 @@ public class MainController {
 
 
 
-        return "myWishlists";
+        return "redirect:/myWishlists";
     }
 
     @GetMapping("/myWishlists")
-    public String showAllWishlists(@RequestParam String userEmail, Model model) {
-        List<GiftList> giftList = wishlistRepository.returnAllGiftListsFromEmail(userEmail);
-        model.addAllAttributes(giftList);
+    public String showAllWishlists(Model model) {
+
+        List<GiftList> wishLists = wishlistRepository.returnAllGiftLists();
+        //wishLists = new ArrayList<>();
+        model.addAttribute("giftLists", wishLists);
+
         return "myWishlists";
     }
 
@@ -82,14 +85,9 @@ public class MainController {
         //Find the list that the user has clicked on
 
 
-
         //test
-        /*
-        ArrayList<Gift> gifts = new ArrayList<>();
-        Gift gift = new Gift("Ford Focus", 200000, "ford.dk");
-        gifts.add(gift);
+        List<Gift> gifts = wishlistRepository.returnGiftsFromList(2);
         model.addAttribute("newGift", gifts);
-         */
         return "myListOfGifts";
     }
 

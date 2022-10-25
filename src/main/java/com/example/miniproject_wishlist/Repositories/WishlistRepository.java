@@ -257,4 +257,25 @@ public class WishlistRepository {
 
     }
 
+    // return ALL giftLists
+    public List<GiftList> returnAllGiftLists() {
+        List<GiftList> giftLists = new ArrayList<>();
+        try {
+            PreparedStatement psts = con.prepareStatement("SELECT * FROM giftlists");
+            ResultSet resultset = psts.executeQuery();
+
+            while (resultset.next()) {
+                giftLists.add(new GiftList(
+                        resultset.getString("email"),
+                        resultset.getString("listName")
+                ));
+            }
+
+        } catch (Exception e) {
+            System.out.print("SQL exception");
+        }
+        return giftLists;
+
+    }
+
 }

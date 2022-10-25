@@ -57,14 +57,13 @@ public class MainController {
         double giftPrice = Double.parseDouble(Objects.requireNonNull(dataFromForm.getParameter("price")));
         String link = dataFromForm.getParameter("link");
 
-        wishlistRepository.createGift(new Gift(giftName, giftPrice, link), 12);
+        int listID = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("oldListID")));
+        wishlistRepository.createGift(new Gift(giftName, giftPrice, link), listID);
 
-        int linkID = Integer.parseInt(dataFromForm.getParameter("oldListID"));
-
-        System.out.println(linkID);
+        System.out.println(listID);
 
 
-        return "redirect:/myGifts?listID";
+        return "redirect:/myGifts?listID=" + listID;
     }
 
 

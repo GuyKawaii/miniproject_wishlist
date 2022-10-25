@@ -167,25 +167,26 @@ public class WishlistRepository {
 
     // ### gift ###
     // ONLY ALLOWED to add gift to already existing giftList
-    public boolean createGift(Gift gift, GiftList giftList) {
+    public boolean createGift(Gift gift, int listID) {
 
-        // TODO Tweak and recheck
         PreparedStatement psts = null;
 
         try {
             // with or without predefined giftID
             if (gift.getGiftID() == null) {
-                psts = con.prepareStatement("INSERT INTO gifts (giftName, price, url) VALUES (?,?,?)");
-                psts.setString(1, gift.getGiftName());
-                psts.setDouble(2, gift.getPrice());
-                psts.setString(3, gift.getUrl());
-
-            } else {
-                psts = con.prepareStatement("INSERT INTO gifts (listID, giftName, price, url) VALUES (?,?,?,?)");
-                psts.setInt(1, giftList.getListID());
+                psts = con.prepareStatement("INSERT INTO gifts (listID, giftName, price, url) VALUES (?,?,?,?);");
+                psts.setInt(1, listID);
                 psts.setString(2, gift.getGiftName());
                 psts.setDouble(3, gift.getPrice());
                 psts.setString(4, gift.getUrl());
+
+            } else {
+                psts = con.prepareStatement("INSERT INTO gifts (giftID, listID, giftName, price, url) VALUES (?,?,?,?,?);");
+                psts.setInt(1, gift.getGiftID());
+                psts.setInt(2, listID);
+                psts.setString(3, gift.getGiftName());
+                psts.setDouble(4, gift.getPrice());
+                psts.setString(5, gift.getUrl());
             }
 
             psts.executeUpdate();

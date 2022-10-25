@@ -1,11 +1,10 @@
 package com.example.miniproject_wishlist.controller;
 
-import com.example.miniproject_wishlist.model.Gift;
 import com.example.miniproject_wishlist.Repositories.WishlistRepository;
+import com.example.miniproject_wishlist.model.Gift;
 import com.example.miniproject_wishlist.model.GiftList;
 import com.example.miniproject_wishlist.model.User;
 import com.example.miniproject_wishlist.service.wishlistService;
-import com.sun.tools.javac.Main;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,9 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.Objects;
 
 @Controller
 public class MainController {
@@ -28,6 +26,48 @@ public class MainController {
         return "index";
     }
 
+    @GetMapping("/myWishlists")
+    public String myWishlists(@RequestParam String email, Model model) {
+
+        List<GiftList> wishLists = wishlistRepository.returnAllGiftListsFromEmail(email);
+
+        model.addAttribute("giftLists", wishLists);
+        model.addAttribute("email", email);
+
+        return "myWishlists";
+    }
+
+    @GetMapping("/myGifts")
+    public String myGifts(@RequestParam int listID, Model model) {
+
+        List<Gift> gifts = wishlistRepository.returnGiftsFromList(listID);
+        GiftList giftList = wishlistRepository.getGiftList(listID);
+
+        model.addAttribute("listName", giftList.getListName());
+        model.addAttribute("oldListID", listID);
+        model.addAttribute("gifts", gifts);
+
+        return "myGifts";
+    }
+
+    @PostMapping("/myGifts/newGift")
+    public String newGift(WebRequest dataFromForm, Model model) {
+
+        String giftName = dataFromForm.getParameter("name");
+        double giftPrice = Double.parseDouble(Objects.requireNonNull(dataFromForm.getParameter("price")));
+        String link = dataFromForm.getParameter("link");
+
+        wishlistRepository.createGift(new Gift(giftName, giftPrice, link), 12);
+
+        int linkID = Integer.parseInt(dataFromForm.getParameter("oldListID"));
+
+        System.out.println(linkID);
+
+
+        return "redirect:/myGifts?listID";
+    }
+
+
     @PostMapping("/create")
     public String createUser(WebRequest dataFromForm, Model model) {
         // Create user i database with name and email
@@ -36,20 +76,11 @@ public class MainController {
         String userName = dataFromForm.getParameter("name");
         wishlistRepository.createUser(new User(email, userName));
 
-
+        model.addAttribute("email", email);
 
         return "redirect:/myWishlists";
     }
 
-    @GetMapping("/myWishlists")
-    public String showAllWishlists(Model model) {
-
-        List<GiftList> wishLists = wishlistRepository.returnAllGiftLists();
-        //wishLists = new ArrayList<>();
-        model.addAttribute("giftLists", wishLists);
-
-        return "myWishlists";
-    }
 
     @PostMapping("/createWishlist")
     public String createWishlist(WebRequest dataFromForm, @RequestParam String userEmail) {
@@ -59,18 +90,14 @@ public class MainController {
 
 
         // display from db all user lists 'email'
-
-
-        return "myListOfGifts";
+        return "myGifts";
     }
 
     @PostMapping("/createGift")
     public String createGift(WebRequest dataFromForm, Model model) {
         //Create wish/gift in database under the correct wishlist
 
-
-
-        return "myListOfGifts";
+        return "myGifts";
     }
 
     @PostMapping("/find")
@@ -81,7 +108,7 @@ public class MainController {
     }
 
     @PostMapping("/findMyWishlist")
-    public String findWishlistAsUser(Model model) {
+    public String findGilistAsUser(@RequestParam String listID, Model model) {
         //Find the list that the user has clicked on
 
 
@@ -91,27 +118,5 @@ public class MainController {
         return "myListOfGifts";
     }
 
-    public void run() {
-        User user = new User("email", "name");
-        GiftList giftList1 = new GiftList(99,"email", "with id");
-        GiftList giftList2 = new GiftList("email", "without id");
-
-        // user
-//        boolean added =  wishlistRepository.createUser(user);
-
-        // list
-        wishlistRepository.createGiftList(giftList1);
-        wishlistRepository.createGiftList(giftList2);
-
-        // gifts
-
-
-    }
-
-    public static void main(String[] args) {
-        MainController mainController = new MainController();
-
-        mainController.run();
-    }
 
 }

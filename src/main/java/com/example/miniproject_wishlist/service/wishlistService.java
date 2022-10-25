@@ -13,7 +13,8 @@ public class wishlistService {
         request.getParameter("email");
         request.getParameter("name");
 
-        User user = new User(request.getParameter("email"),request.getParameter("name"));
+        User user = new User(request.getParameter("email"),
+                request.getParameter("name"));
 
         repo.createUser(user);
     }

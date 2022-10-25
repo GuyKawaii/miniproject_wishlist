@@ -20,9 +20,10 @@
     <div class="wishes">
         <table>
             <tr th:each="gift: ${newGift}">
-                <td th:text="${gift.name}"/>
+                <td th:text="${gift.giftName}"/>
                 <td th:text="${gift.price}"/>
-                <td th:text="${gift.url}"/>
+                <td th:href="${gift.url}"/>
+                <td><input type="submit" value="Delete"></td>
             </tr>
         </table>
     </div>

@@ -1,18 +1,26 @@
 package com.example.miniproject_wishlist.model;
 
 public class Gift {
-    private int giftID;
+    private Integer giftID;
     private String giftName;
     private double price;
     private String url;
 
-    Gift(int giftID, String giftName, double price){
+    public Gift(String giftName, double price, String url){
+        giftID = null;
+        setGiftName(giftName);
+        setPrice(price);
+        setUrl(url);
+    }
+
+    public Gift(int giftID, String giftName, double price, String url){
         setGiftID(giftID);
         setGiftName(giftName);
         setPrice(price);
+        setUrl(url);
     }
 
-    public int getGiftID() {
+    public Integer getGiftID() {
         return giftID;
     }
 
@@ -52,4 +60,5 @@ public class Gift {
                 ", url='" + url + '\'' +
                 '}';
     }
+
 }

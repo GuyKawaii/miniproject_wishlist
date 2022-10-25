@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -29,18 +30,31 @@ public class MainController {
 
     @PostMapping("/create")
     public String createUser(WebRequest dataFromForm, Model model) {
-        //Create user i database with name and email
+        // Create user i database with name and email
+        //todo læg koden ind i service
+        String email = dataFromForm.getParameter("email");
+        String userName = dataFromForm.getParameter("name");
+        wishlistRepository.createUser(new User(email, userName));
 
+        return "myWishlists";
+    }
 
-        //test
-        model.addAttribute("list1", "MyWishlist");
-
+    @GetMapping("/myWishlists")
+    public String showAllWishlists(@RequestParam String userEmail, Model model) {
+        List<GiftList> giftList = wishlistRepository.returnAllGiftListsFromEmail(userEmail);
+        model.addAllAttributes(giftList);
         return "myWishlists";
     }
 
     @PostMapping("/createWishlist")
     public String createWishlist(WebRequest dataFromForm, @RequestParam String userEmail) {
         //Create list in database under the user
+        String wishlistName = dataFromForm.getParameter("name");
+        //wishlistRepository.createGiftList(userEmail);
+
+
+        // display from db all user lists 'email'
+
 
         return "myListOfGifts";
     }
@@ -66,11 +80,14 @@ public class MainController {
         //Find the list that the user has clicked on
 
 
+
         //test
+        /*
         ArrayList<Gift> gifts = new ArrayList<>();
         Gift gift = new Gift("Ford Focus", 200000, "ford.dk");
         gifts.add(gift);
         model.addAttribute("newGift", gifts);
+         */
         return "myListOfGifts";
     }
 

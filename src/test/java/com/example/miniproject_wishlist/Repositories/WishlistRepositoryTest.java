@@ -72,6 +72,25 @@ class WishlistRepositoryTest {
     }
 
 
+    @Test
+    public void testReturnAllGiftListsFromEmail() {
+        // parameters used
+        String testEmail = "testEmail";
+        String testName = "testName";
+        User expected = new User(testEmail, testName);
+
+        String testListName = "testGiftList";
+        int testListID = 1;
+        GiftList expectedGiftList  = new GiftList(testListID, testEmail, testListName);
+
+
+
+
+
+
+    }
+
+
 
 
 }

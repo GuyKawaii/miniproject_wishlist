@@ -6,23 +6,24 @@
 </head>
 <body>
 
-<form method="POST" action="/createGift">
+<form method="POST" action="/myGifts/newGift">
     <h4>Create a wish:</h4>
     <label for="name">Please enter the item name</label><br>
-    <input type="text" name="name" required/> <br>
+    <input type="text" name="name" required id="name"/> <br>
     <label for="price">Please enter the price of the item</label><br>
     <input type="number" name="price" id="price"><br>
     <label for="link">Please enter the link of the item</label><br>
     <input type="text" name="link" id="link"><br><br>
     <input type="submit">
+    <input type="hidden" th:field="${oldListID}" id="oldListID" value="oldListID" name="oldListID">
 </form>
 <br><br>
     <div class="wishes">
         <table>
-            <tr th:each="gift: ${newGift}">
+            <tr th:each="gift: ${gifts}">
                 <td th:text="${gift.giftName}"/>
                 <td th:text="${gift.price}"/>
-                <td th:href="${gift.url}"/>
+                <td th:text="${gift.url}"/>
                 <td><input type="submit" value="Delete"></td>
             </tr>
         </table>

@@ -19,7 +19,7 @@ INSERT INTO gifts (giftID, listID, giftName, price, url) VALUES (4, 2, 'item 4',
 INSERT INTO giftlists (email, listName) VALUES ('email b', 'list 2');
 
 
-DELETE FROM giftlists WHERE listID = 1;
+SELECT * FROM giftlists WHERE email = 'email';
 
 
 -- delete gifts

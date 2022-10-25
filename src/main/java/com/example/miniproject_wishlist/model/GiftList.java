@@ -19,6 +19,11 @@ public class GiftList {
         setListName(listName);
     }
 
+    public GiftList(String listName) {
+        listID = null;
+        setListName(listName);
+    }
+
     public Integer getListID() {
         return listID;
     }

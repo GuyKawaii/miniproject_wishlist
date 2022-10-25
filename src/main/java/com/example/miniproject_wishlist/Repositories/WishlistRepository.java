@@ -167,25 +167,26 @@ public class WishlistRepository {
 
     // ### gift ###
     // ONLY ALLOWED to add gift to already existing giftList
-    public boolean createGift(Gift gift, GiftList giftList) {
+    public boolean createGift(Gift gift, int listID) {
 
-        // TODO Tweak and recheck
         PreparedStatement psts = null;
 
         try {
             // with or without predefined giftID
             if (gift.getGiftID() == null) {
-                psts = con.prepareStatement("INSERT INTO gifts (giftName, price, url) VALUES (?,?,?)");
-                psts.setString(1, gift.getGiftName());
-                psts.setDouble(2, gift.getPrice());
-                psts.setString(3, gift.getUrl());
-
-            } else {
-                psts = con.prepareStatement("INSERT INTO gifts (listID, giftName, price, url) VALUES (?,?,?,?)");
-                psts.setInt(1, giftList.getListID());
+                psts = con.prepareStatement("INSERT INTO gifts (listID, giftName, price, url) VALUES (?,?,?,?);");
+                psts.setInt(1, listID);
                 psts.setString(2, gift.getGiftName());
                 psts.setDouble(3, gift.getPrice());
                 psts.setString(4, gift.getUrl());
+
+            } else {
+                psts = con.prepareStatement("INSERT INTO gifts (giftID, listID, giftName, price, url) VALUES (?,?,?,?,?);");
+                psts.setInt(1, gift.getGiftID());
+                psts.setInt(2, listID);
+                psts.setString(3, gift.getGiftName());
+                psts.setDouble(4, gift.getPrice());
+                psts.setString(5, gift.getUrl());
             }
 
             psts.executeUpdate();
@@ -235,27 +236,47 @@ public class WishlistRepository {
         return gift;
     }
 
-    // todo create method to get all giftLists for user
-//    // return all giftLists for user
-//    public List<GiftList> returnAllGiftListsFromEmail(String email) {
-//        List<GiftList> giftLists = new ArrayList<>();
-//        try {
-//            PreparedStatement psts = con.prepareStatement("SELECT * FROM giftlists WHERE email = ?");
-//            psts.setString(1, email);
-//            ResultSet resultset = psts.executeQuery();
-//
-//            while (resultset.next()) {
-//                giftLists.add(new GiftList(
-//                        resultset.getInt("email"),
-//                        resultset.getString("listName"),
-//                ));
-//            }
-//
-//        } catch (Exception e) {
-//            System.out.print("SQL exception");
-//        }
-//        return giftLists;
-//
-//    }
+    // return all giftLists for user
+    public List<GiftList> returnAllGiftListsFromEmail(String email) {
+        List<GiftList> giftLists = new ArrayList<>();
+        try {
+            PreparedStatement psts = con.prepareStatement("SELECT * FROM giftlists WHERE email = ?");
+            psts.setString(1, email);
+            ResultSet resultset = psts.executeQuery();
+
+            while (resultset.next()) {
+                giftLists.add(new GiftList(
+                        resultset.getString("email"),
+                        resultset.getString("listName")
+                ));
+            }
+
+        } catch (Exception e) {
+            System.out.print("SQL exception");
+        }
+        return giftLists;
+
+    }
+
+    // return ALL giftLists
+    public List<GiftList> returnAllGiftLists() {
+        List<GiftList> giftLists = new ArrayList<>();
+        try {
+            PreparedStatement psts = con.prepareStatement("SELECT * FROM giftlists");
+            ResultSet resultset = psts.executeQuery();
+
+            while (resultset.next()) {
+                giftLists.add(new GiftList(
+                        resultset.getString("email"),
+                        resultset.getString("listName")
+                ));
+            }
+
+        } catch (Exception e) {
+            System.out.print("SQL exception");
+        }
+        return giftLists;
+
+    }
 
 }

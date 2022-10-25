@@ -4,6 +4,7 @@ import com.example.miniproject_wishlist.model.Gift;
 import com.example.miniproject_wishlist.Repositories.WishlistRepository;
 import com.example.miniproject_wishlist.model.GiftList;
 import com.example.miniproject_wishlist.model.User;
+import com.example.miniproject_wishlist.service.wishlistService;
 import com.sun.tools.javac.Main;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,7 @@ import java.util.Map;
 @Controller
 public class MainController {
     private WishlistRepository wishlistRepository = new WishlistRepository();
+    private wishlistService wishlistService = new wishlistService();
 
 
     @GetMapping("/")

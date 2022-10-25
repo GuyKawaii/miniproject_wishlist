@@ -18,15 +18,21 @@
     <input type="hidden" name="oldListID" th:value="${oldListID}">
 </form>
 <br><br>
-    <div class="wishes">
-        <table>
-            <tr th:each="gift: ${gifts}">
-                <td th:text="${gift.giftName}"/>
-                <td th:text="${gift.price}"/>
-                <td th:text="${gift.url}"/>
-                <td><input type="submit" value="Delete"></td>
-            </tr>
-        </table>
-    </div>
+<div class="wishes">
+    <table>
+        <tr th:each="gift: ${gifts}">
+            <td th:text="${gift.giftName}"/>
+            <td th:text="${gift.price}"/>
+            <td th:text="${gift.url}"/>
+            <td>
+                <form method="POST" action="/myGifts/deleteGift">
+                    <input type="hidden" name="giftID" th:value="${gift.giftID}">
+                    <input type="hidden" name="oldListID" th:value="${oldListID}">
+                    <input type="submit" value="Delete">
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
 </body>
 </html>

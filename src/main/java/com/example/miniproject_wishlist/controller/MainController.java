@@ -66,6 +66,21 @@ public class MainController {
         return "redirect:/myGifts?listID=" + listID;
     }
 
+    @PostMapping("/myGifts/deleteGift")
+    public String deleteGift(WebRequest dataFromForm, Model model) {
+
+        int giftID = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("giftID")));
+        int listID = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("oldListID")));
+        
+        wishlistRepository.deleteGift(giftID);
+
+        System.out.println(listID);
+        System.out.println(giftID);
+
+
+        return "redirect:/myGifts?listID=" + listID;
+    }
+
 
     @PostMapping("/create")
     public String createUser(WebRequest dataFromForm, Model model) {

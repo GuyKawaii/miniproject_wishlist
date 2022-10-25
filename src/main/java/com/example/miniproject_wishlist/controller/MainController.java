@@ -20,7 +20,7 @@ public class MainController {
     private WishlistRepository wishlistRepository = new WishlistRepository();
     private wishlistService wishlistService = new wishlistService();
 
-
+    // ### BASE GET MAPPINGS ###
     @GetMapping("/")
     public String index() {
         return "index";
@@ -50,6 +50,20 @@ public class MainController {
         return "myGifts";
     }
 
+    @GetMapping("/shareGifts")
+    public String shareGift(@RequestParam int listID, Model model) {
+
+        List<Gift> gifts = wishlistRepository.returnGiftsFromList(listID);
+        GiftList giftList = wishlistRepository.getGiftList(listID);
+
+        model.addAttribute("listName", giftList.getListName());
+        model.addAttribute("oldListID", listID);
+        model.addAttribute("gifts", gifts);
+
+        return "sharedGifts";
+    }
+
+    // ### OTHER MAPPINGS ###
     @PostMapping("/myGifts/newGift")
     public String newGift(WebRequest dataFromForm, Model model) {
 
@@ -59,9 +73,9 @@ public class MainController {
 
         int listID = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("oldListID")));
         wishlistRepository.createGift(new Gift(giftName, giftPrice, link), listID);
+//        String shortUrl todo maybe create a short form of a link to display
 
         System.out.println(listID);
-
 
         return "redirect:/myGifts?listID=" + listID;
     }
@@ -71,14 +85,54 @@ public class MainController {
 
         int giftID = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("giftID")));
         int listID = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("oldListID")));
-        
+
         wishlistRepository.deleteGift(giftID);
 
         System.out.println(listID);
         System.out.println(giftID);
 
 
+        return "redirect:/myWishlists?email=email";
+    }
+
+    @PostMapping("/myWishlists/edit")
+    public String editList(WebRequest dataFromForm, Model model) {
+
+        int listID = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("listID")));
+
+        System.out.println(listID);
+
+
         return "redirect:/myGifts?listID=" + listID;
+    }
+
+    @PostMapping("/myWishlists/newWishlist")
+    public String newGiftList(WebRequest dataFromForm, Model model) {
+
+        String listName = dataFromForm.getParameter("listName");
+        String email = dataFromForm.getParameter("email");
+
+        System.out.println(listName);
+        System.out.println(email);
+        GiftList giftList = new GiftList(email, listName);
+
+
+        wishlistRepository.createGiftList(giftList);
+
+
+        return "redirect:/myWishlists?email=" + email;
+    }
+
+    @PostMapping("/myWishlists/deleteGiftList")
+    public String deleteGiftList(WebRequest dataFromForm, Model model) {
+
+        int listID = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("listID")));
+        String email = dataFromForm.getParameter("email");
+
+        wishlistRepository.deleteGiftList(listID);
+
+
+        return "redirect:/myWishlists?email=" + email;
     }
 
 

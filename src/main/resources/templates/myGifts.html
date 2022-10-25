@@ -17,6 +17,9 @@
     <input type="submit">
     <input type="hidden" name="oldListID" th:value="${oldListID}">
 </form>
+
+<a th:href="'/shareGifts?listID=' + ${oldListID}">share link</a>
+
 <br><br>
 <div class="wishes">
     <table>
@@ -24,6 +27,9 @@
             <td th:text="${gift.giftName}"/>
             <td th:text="${gift.price}"/>
             <td th:text="${gift.url}"/>
+            <td>
+                <a th:href="${gift.url}" th:text="${gift.url}" target="_blank" />
+            </td>
             <td>
                 <form method="POST" action="/myGifts/deleteGift">
                     <input type="hidden" name="giftID" th:value="${gift.giftID}">

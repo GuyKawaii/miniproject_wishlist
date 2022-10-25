@@ -2,27 +2,49 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>my wishlists</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<form method="post" action="/createWishlist/newList">
-    <h4>Create a wishlist:</h4>
-    <label for="name">Please enter the name of your wishlist</label><br>
-    <input type="text" name="name" id="name" required/> <br>
-    <input type="submit">
-</form>
+<div class="content">
+    <form method="post" action="/myWishlists/newWishlist">
+        <h4 th:text="'Wishlists for ' + ${email}"></h4>
+        <h4>Create a wishlist:</h4>
+        <label for="listName">Please enter the name of your wishlist</label><br>
+        <input type="text" name="listName" id="listName" required/> <br>
+        <input type="submit">
+        <input type="hidden" name="email" th:value="${email}">
+    </form>
 
-<br><br>
+    <br><br>
 
-<form method="post" action="/findMyWishlist">
     <table>
-            <tr th:each="list: ${giftLists}">
-                <td th:text="${list.listName}"/>
-                <td><input type="submit" value="Edit"></td>
-            </tr>
+        <tr>
+            <th>List</th>
+        </tr>
+        <tr th:each="giftlist: ${giftLists}">
+
+            <td th:text="${giftlist.listName}"/>
+            <td></td>
+            <td>
+                <form method="POST" action="/myWishlists/edit">
+                    <input type="submit" value="Edit">
+                    <input type="hidden" name="listID" th:value="${giftlist.listID}">
+                </form>
+            </td>
+            <td></td>
+            <td>
+                <form method="POST" action="/myWishlists/deleteGiftList">
+                    <input type="submit" value="Delete">
+                    <input type="hidden" name="listID" th:value="${giftlist.listID}">
+                    <input type="hidden" name="email" th:value="${email}">
+                </form>
+            </td>
+
+        </tr>
     </table>
-</form>
+</div>
 
 </body>
 </html>

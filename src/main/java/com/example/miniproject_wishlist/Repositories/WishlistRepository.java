@@ -246,6 +246,7 @@ public class WishlistRepository {
 
             while (resultset.next()) {
                 giftLists.add(new GiftList(
+                        resultset.getInt("listID"),
                         resultset.getString("email"),
                         resultset.getString("listName")
                 ));
@@ -267,6 +268,7 @@ public class WishlistRepository {
 
             while (resultset.next()) {
                 giftLists.add(new GiftList(
+                        resultset.getInt("listID"),
                         resultset.getString("email"),
                         resultset.getString("listName")
                 ));

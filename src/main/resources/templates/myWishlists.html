@@ -15,10 +15,14 @@
 <br><br>
 <form method="post" action="/findMyWishlist">
 
-    <button class="wishlist" role="button" type="submit" name="wishlist">
 
-        <span th:text="${giftList}"></span>
-    </button>
+    <button class="wishlist" role="button" type="submit" name="wishlist"> </button>
+    <table>
+            <tr th:each="list: ${giftLists}">
+                <td th:text="${list.listName}"/>
+                <td><input type="submit" value="Edit"></td>
+            </tr>
+    </table>
 </form>
 
 </body>

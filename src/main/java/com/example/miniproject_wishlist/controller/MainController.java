@@ -36,6 +36,8 @@ public class MainController {
         String userName = dataFromForm.getParameter("name");
         wishlistRepository.createUser(new User(email, userName));
 
+
+
         return "myWishlists";
     }
 

@@ -107,7 +107,7 @@ public class MainController {
     }
 
     @PostMapping("/myWishlists/newWishlist")
-    public String newGiftList(WebRequest dataFromForm, Model model) {
+    public String newWishlist(WebRequest dataFromForm, Model model) {
 
         String listName = dataFromForm.getParameter("listName");
         String email = dataFromForm.getParameter("email");
@@ -123,8 +123,8 @@ public class MainController {
         return "redirect:/myWishlists?email=" + email;
     }
 
-    @PostMapping("/myWishlists/deleteGiftList")
-    public String deleteGiftList(WebRequest dataFromForm, Model model) {
+    @PostMapping("/myWishlists/deleteWishlist")
+    public String deleteWishlist(WebRequest dataFromForm, Model model) {
 
         int listID = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("listID")));
         String email = dataFromForm.getParameter("email");
@@ -148,7 +148,7 @@ public class MainController {
     }
 
 
-    @PostMapping("/create")
+    @PostMapping("/createUser")
     public String createUser(WebRequest dataFromForm, Model model) {
         // Create user i database with name and email
         //todo læg koden ind i service

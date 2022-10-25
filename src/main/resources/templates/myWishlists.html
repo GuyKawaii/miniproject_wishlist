@@ -28,7 +28,7 @@
             <td th:text="${giftlist.listName}"/>
             <td></td>
             <td>
-                <form method="POST" action="/myWishlists/edit">
+                <form method="POST" action="/myWishlists/editList">
                     <input type="submit" value="Edit">
                     <input type="hidden" name="listID" th:value="${giftlist.listID}">
                 </form>

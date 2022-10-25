@@ -9,11 +9,11 @@
 <form method="POST" action="/myGifts/newGift">
     <h4>Create a wish:</h4>
     <label for="name">Please enter the item name</label><br>
-    <input type="text" name="name" required id="name"/> <br>
+    <input type="text" name="name" id="name" required/> <br>
     <label for="price">Please enter the price of the item</label><br>
-    <input type="number" name="price" id="price"><br>
+    <input type="number" name="price" id="price" required><br>
     <label for="link">Please enter the link of the item</label><br>
-    <input type="text" name="link" id="link"><br><br>
+    <input type="text" name="link" id="link" required><br><br>
     <input type="submit">
     <input type="hidden" name="oldListID" th:value="${oldListID}">
 </form>
@@ -28,7 +28,7 @@
             <td th:text="${gift.price}"/>
             <td th:text="${gift.url}"/>
             <td>
-                <a th:href="${gift.url}" th:text="${gift.url}" target="_blank" />
+                <a th:href="${gift.url}" th:text="${gift.url}" target="_blank"/>
             </td>
             <td>
                 <form method="POST" action="/myGifts/deleteGift">

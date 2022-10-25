@@ -60,7 +60,7 @@ public class MainController {
         model.addAttribute("oldListID", listID);
         model.addAttribute("gifts", gifts);
 
-        return "sharedGifts";
+        return "shareGifts";
     }
 
     // ### OTHER MAPPINGS ###
@@ -92,10 +92,10 @@ public class MainController {
         System.out.println(giftID);
 
 
-        return "redirect:/myWishlists?email=email";
+        return "redirect:/myGifts?listID=" + listID;
     }
 
-    @PostMapping("/myWishlists/edit")
+    @PostMapping("/myWishlists/editList")
     public String editList(WebRequest dataFromForm, Model model) {
 
         int listID = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("listID")));
@@ -131,8 +131,20 @@ public class MainController {
 
         wishlistRepository.deleteGiftList(listID);
 
-
         return "redirect:/myWishlists?email=" + email;
+    }
+
+
+    @PostMapping("/findWishlistAsGuest")
+    public String findWishlistAsGuest(WebRequest dataFromForm) {
+        int listID = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("listID")));
+        GiftList giftList = wishlistRepository.getGiftList(listID);
+
+        // check if valid redirect
+        if (giftList != null)
+            return "redirect:/shareGifts?listID=" + listID;
+        else
+            return "redirect:/";
     }
 
 
@@ -149,44 +161,21 @@ public class MainController {
         return "redirect:/myWishlists?email=" + email;
     }
 
+//    @PostMapping("/createWishlist")
+//    public String createWishlist(WebRequest dataFromForm, @RequestParam String userEmail) {
+//        //Create list in database under the user
+//        String wishlistName = dataFromForm.getParameter("name");
+//        //wishlistRepository.createGiftList(userEmail);
+//
+//
+//        // display from db all user lists 'email'
+//        return "myGifts";
+//    }
 
-    @PostMapping("/createWishlist")
-    public String createWishlist(WebRequest dataFromForm, @RequestParam String userEmail) {
-        //Create list in database under the user
-        String wishlistName = dataFromForm.getParameter("name");
-        //wishlistRepository.createGiftList(userEmail);
-
-
-        // display from db all user lists 'email'
-        return "myGifts";
-    }
-
-    @PostMapping("/createGift")
-    public String createGift(WebRequest dataFromForm, Model model) {
-        //Create wish/gift in database under the correct wishlist
-
-        return "myGifts";
-    }
-
-    @PostMapping("/find")
-    public String findWishlistAsGuest(WebRequest dataFromForm) {
-        //Find list by id
-
-        return "";
-    }
-
-    @PostMapping("/findMyWishlist")
-    public String findGilistAsUser(@RequestParam String listID, Model model) {
-        //Find the list that the user has clicked on
-
-
-        //test shows gifts in myLists
-        /*
-        List<Gift> gifts = wishlistRepository.returnGiftsFromList(2);
-        model.addAttribute("newGift", gifts);
-         */
-        return "redirect:/myGifts?listID=" + listID;
-    }
-
-
+//    @PostMapping("/createGift")
+//    public String createGift(WebRequest dataFromForm, Model model) {
+//        //Create wish/gift in database under the correct wishlist
+//
+//        return "myGifts";
+//    }
 }

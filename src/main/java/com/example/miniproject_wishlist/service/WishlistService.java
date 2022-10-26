@@ -4,7 +4,7 @@ import com.example.miniproject_wishlist.Repositories.WishlistRepository;
 import com.example.miniproject_wishlist.model.User;
 import org.springframework.web.context.request.WebRequest;
 
-public class wishlistService {
+public class WishlistService {
 
     WishlistRepository repo = new WishlistRepository();
 

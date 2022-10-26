@@ -4,7 +4,7 @@ import com.example.miniproject_wishlist.Repositories.WishlistRepository;
 import com.example.miniproject_wishlist.model.Gift;
 import com.example.miniproject_wishlist.model.GiftList;
 import com.example.miniproject_wishlist.model.User;
-import com.example.miniproject_wishlist.service.wishlistService;
+import com.example.miniproject_wishlist.service.WishlistService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +18,7 @@ import java.util.Objects;
 @Controller
 public class MainController {
     private WishlistRepository wishlistRepository = new WishlistRepository();
-    private wishlistService wishlistService = new wishlistService();
+    private WishlistService wishlistService = new WishlistService();
 
     // ### BASE GET MAPPINGS ###
     @GetMapping("/")

@@ -22,7 +22,7 @@
             </td>
             <td>
                 <form method="POST" action="/shareGifts/updateReserved">
-                    <input onchange="this.form.submit()" type="checkbox" name="reserved" th:value="${gift.reserved}"  th:checked="${gift.reserved} ? 'reserved'">
+                    <input onchange="this.form.submit()" type="checkbox" name="reserved" th:value="${gift.reserved}"  th:checked="${gift.reserved}">
                     <input type="hidden" name="giftID" th:value="${gift.giftID}">
                     <input type="hidden" name="oldListID" th:value="${oldListID}">
                 </form>

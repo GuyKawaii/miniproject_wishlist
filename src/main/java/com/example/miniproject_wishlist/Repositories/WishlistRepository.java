@@ -217,6 +217,7 @@ public class WishlistRepository {
             psts.executeUpdate();
 
         } catch (SQLException e) {
+            System.out.println("Problem on line 220 in Wishlist Repository");
             return false;
         }
 

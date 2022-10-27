@@ -52,6 +52,14 @@ public class Gift {
         this.url = url;
     }
 
+    public Boolean getReserved() {
+        return isReserved;
+    }
+
+    public void setReserved(Boolean reserved) {
+        isReserved = reserved;
+    }
+
     @Override
     public String toString() {
         return "Gift{" +

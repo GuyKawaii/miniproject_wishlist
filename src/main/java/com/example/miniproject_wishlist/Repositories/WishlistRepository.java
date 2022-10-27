@@ -21,7 +21,7 @@ public class WishlistRepository {
         // return true or false if inserted
 
         try {
-             psts = con.prepareStatement("INSERT INTO users VALUES (?,?)");
+            psts = con.prepareStatement("INSERT INTO users VALUES (?,?)");
 
             // user parameters
             psts.setString(1, user.getEmail());
@@ -39,7 +39,7 @@ public class WishlistRepository {
 
     public boolean deleteUser(String testEmail) {
         try {
-             psts = con.prepareStatement("DELETE FROM users WHERE email = ?;");
+            psts = con.prepareStatement("DELETE FROM users WHERE email = ?;");
             psts.setString(1, testEmail);
 
             psts.executeUpdate();
@@ -60,8 +60,8 @@ public class WishlistRepository {
             ResultSet resultSet = psts.executeQuery();
 
             // add parameters
-            while(resultSet.next()) {
-                user =  new User(
+            while (resultSet.next()) {
+                user = new User(
                         resultSet.getString("email"),
                         resultSet.getString("userName"));
             }
@@ -126,8 +126,8 @@ public class WishlistRepository {
             ResultSet resultSet = psts.executeQuery();
 
             // add parameters listID, String email, String listName
-            while(resultSet.next()) {
-                giftList =  new GiftList(
+            while (resultSet.next()) {
+                giftList = new GiftList(
                         resultSet.getInt("listID"),
                         resultSet.getString("email"),
                         resultSet.getString("listName"));
@@ -154,7 +154,8 @@ public class WishlistRepository {
                         resultSet.getInt("giftID"),
                         resultSet.getString("giftName"),
                         resultSet.getDouble("price"),
-                        resultSet.getString("url")
+                        resultSet.getString("url"),
+                        resultSet.getBoolean("isReserved")
                 ));
             }
 
@@ -166,7 +167,6 @@ public class WishlistRepository {
     }
 
 
-
     // ### gift ###
     // ONLY ALLOWED to add gift to already existing giftList
     public boolean createGift(Gift gift, int listID) {
@@ -176,11 +176,12 @@ public class WishlistRepository {
         try {
             // with or without predefined giftID
             if (gift.getGiftID() == null) {
-                psts = con.prepareStatement("INSERT INTO gifts (listID, giftName, price, url) VALUES (?,?,?,?);");
+                psts = con.prepareStatement("INSERT INTO gifts (listID, giftName, price, url, isReserved) VALUES (?,?,?,?,?);");
                 psts.setInt(1, listID);
                 psts.setString(2, gift.getGiftName());
                 psts.setDouble(3, gift.getPrice());
                 psts.setString(4, gift.getUrl());
+                psts.setBoolean(5, gift.getReserved());
 
             } else {
                 psts = con.prepareStatement("INSERT INTO gifts (giftID, listID, giftName, price, url) VALUES (?,?,?,?,?);");
@@ -198,6 +199,29 @@ public class WishlistRepository {
 
         return true;
     }
+
+    public boolean setIsReservedForGift(int giftID, boolean isReserved) {
+        int isReservedSql;
+//        if (isReserved == true) {
+//            isReservedSql = 0;
+//        }
+//        else (isReserved == false) {
+//            isReservedSql = 1;
+//        }
+        try {
+            psts = con.prepareStatement(
+                    "UPDATE gifts SET isReserved = ? WHERE giftID = ?;");
+            psts.setBoolean(1, isReserved);
+            psts.setInt(2, giftID);
+            psts.executeUpdate();
+
+        } catch (SQLException e) {
+            return false;
+        }
+
+        return true;
+    }
+
     public boolean deleteGift(int giftID) {
         try {
             psts = con.prepareStatement("DELETE FROM gifts WHERE giftID = ?;");
@@ -221,9 +245,9 @@ public class WishlistRepository {
             ResultSet resultSet = psts.executeQuery();
 
             // add parameters giftID, String giftName, double price, String url
-            while(resultSet.next()) {
+            while (resultSet.next()) {
 
-                gift =  new Gift(
+                gift = new Gift(
                         resultSet.getInt("giftID"),
                         resultSet.getString("giftName"),
                         resultSet.getDouble("price"),

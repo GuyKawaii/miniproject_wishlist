@@ -10,8 +10,8 @@ CREATE TABLE IF NOT EXISTS users
     userName  varchar(50),
     primary key (email)
 );
--- giftLists
-CREATE TABLE IF NOT EXISTS giftLists
+-- wishlists
+CREATE TABLE IF NOT EXISTS wishlists
 (
     listID int AUTO_INCREMENT,
     email  varchar(50),
@@ -27,8 +27,9 @@ CREATE TABLE IF NOT EXISTS gifts
     giftName varchar(50),
     price double,
     url varchar(50),
+    isReserved boolean,
     PRIMARY KEY (giftID),
-    FOREIGN KEY (listID) REFERENCES giftLists(listID) ON DELETE CASCADE
+    FOREIGN KEY (listID) REFERENCES wishlists(listID) ON DELETE CASCADE
 );
 
 -- remove all elements

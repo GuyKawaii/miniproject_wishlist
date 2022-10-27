@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Wishlist</title>
+</head>
+<body>
+<div class="wishes">
+    <table>
+        <tr>
+            <th>Gift</th>
+            <th>Price</th>
+            <th>Link</th>
+            <th>Reserved</th>
+        </tr>
+        <tr th:each="gift: ${gifts}">
+            <td th:text="${gift.giftName}"/>
+            <td th:text="${gift.price}"/>
+            <td>
+                <a th:href="${gift.url}" th:text="${gift.url}" target="_blank" />
+            </td>
+            <td>
+                <form method="PUT" action="/myGifts/deleteGift">
+                    <input type="checkbox" name="reserve" value="reserve">
+                    <input type="hidden" name="giftID" th:value="${gift.giftID}">
+                    <input type="hidden" name="oldListID" th:value="${oldListID}">
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

@@ -68,7 +68,7 @@ public class Gift {
         return "Gift{" +
                 ", name='" + giftName + '\'' +
                 ", price=" + price +
-                ", url='" + url + '\'' +
+                ", url='" + url + '\'' + "isReserved=" + isReserved +
                 '}';
     }
 

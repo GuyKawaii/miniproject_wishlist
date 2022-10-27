@@ -18,6 +18,13 @@
     <input type="submit">
 </form>
 <br><br>
+<form method="GET" action="/myWishlists">
+    <h3>Log-in</h3>
+    <label for="emailLog">Please enter your e-mail</label><br>
+    <input type="text" name="email" id="emailLog" pattern=".*[@]+.*" required/><br><br>
+    <input type="submit">
+</form>
+<br><br>
 <form method="POST" action="/findWishlistAsGuest">
     <h3>Find a wishlist:</h3>
     <label for="listId">Please enter list id</label><br>

@@ -47,4 +47,13 @@ public class GiftList {
     public void setListName(String listName) {
         this.listName = listName;
     }
+
+    @Override
+    public String toString() {
+        return "GiftList{" +
+                "listID=" + listID +
+                ", email='" + email + '\'' +
+                ", listName='" + listName + '\'' +
+                '}';
+    }
 }

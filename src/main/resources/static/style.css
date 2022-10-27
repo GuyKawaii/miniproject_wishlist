@@ -1,9 +1,14 @@
 body {
     /*text-align: center;*/
+    background: aliceblue;
 }
 
 #content {
     /*text-align: left;*/
     width: 800px;
     margin: 0 auto;
+}
+
+.required {
+    color: red;
 }

@@ -168,7 +168,14 @@ public class MainController {
 
         // parameters for gift -- int giftID, String giftName, double price, String url, boolean isReserved
         int giftID = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("giftID")));
-        boolean isReserved = Boolean.parseBoolean(dataFromForm.getParameter("reserved"));
+        String strIsReserved = dataFromForm.getParameter("reserved");
+
+        // assign boolean value
+        boolean isReserved;
+        if (strIsReserved == null)
+            isReserved = false;
+        else
+            isReserved = true;
 
         String reserved = dataFromForm.getParameter("reserved");
         System.out.println(reserved);

@@ -1,5 +1,6 @@
 package com.example.miniproject_wishlist.model;
 
+// todo refator to wishlist all places
 public class GiftList {
     private Integer listID;
     private String email;

@@ -72,7 +72,7 @@ public class MainController {
         String link = dataFromForm.getParameter("link");
 
         int listID = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("oldListID")));
-        wishlistRepository.createGift(new Gift(giftName, giftPrice, link), listID);
+        wishlistRepository.createGift(new Gift(giftName, giftPrice, link, false), listID);
 //        String shortUrl todo maybe create a short form of a link to display
 
         System.out.println(listID);
@@ -136,7 +136,7 @@ public class MainController {
 
 
     @PostMapping("/findWishlistAsGuest")
-    public String findWishlistAsGuest(WebRequest dataFromForm) {
+    public String findWishlistAsGuest(WebRequest dataFromForm, Model model) {
         int listID = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("listID")));
         GiftList giftList = wishlistRepository.getGiftList(listID);
 
@@ -159,6 +159,31 @@ public class MainController {
         model.addAttribute("email", email);
 
         return "redirect:/myWishlists?email=" + email;
+    }
+
+
+    @PostMapping("/shareGifts/updateReserved")
+    public String updateReserved(WebRequest dataFromForm) {
+        int listID = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("oldListID")));
+
+        // parameters for gift -- int giftID, String giftName, double price, String url, boolean isReserved
+        int giftID = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("giftID")));
+        String strIsReserved = dataFromForm.getParameter("reserved");
+
+        // assign boolean value
+        boolean isReserved;
+        if (strIsReserved == null)
+            isReserved = false;
+        else
+            isReserved = true;
+
+        String reserved = dataFromForm.getParameter("reserved");
+        System.out.println(reserved);
+
+        wishlistRepository.setIsReservedForGift(giftID, isReserved);
+
+
+        return "redirect:/shareGifts?listID=" + listID;
     }
 
 //    @PostMapping("/createWishlist")

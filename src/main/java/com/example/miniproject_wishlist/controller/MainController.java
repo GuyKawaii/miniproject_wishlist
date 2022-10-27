@@ -136,7 +136,7 @@ public class MainController {
 
 
     @PostMapping("/findWishlistAsGuest")
-    public String findWishlistAsGuest(WebRequest dataFromForm) {
+    public String findWishlistAsGuest(WebRequest dataFromForm, Model model) {
         int listID = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("listID")));
         GiftList giftList = wishlistRepository.getGiftList(listID);
 

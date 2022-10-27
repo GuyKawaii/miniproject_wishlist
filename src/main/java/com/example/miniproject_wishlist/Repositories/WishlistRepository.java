@@ -184,12 +184,13 @@ public class WishlistRepository {
                 psts.setBoolean(5, gift.getReserved());
 
             } else {
-                psts = con.prepareStatement("INSERT INTO gifts (giftID, listID, giftName, price, url) VALUES (?,?,?,?,?);");
+                psts = con.prepareStatement("INSERT INTO gifts (giftID, listID, giftName, price, url, isReserved) VALUES (?,?,?,?,?,?);");
                 psts.setInt(1, gift.getGiftID());
                 psts.setInt(2, listID);
                 psts.setString(3, gift.getGiftName());
                 psts.setDouble(4, gift.getPrice());
                 psts.setString(5, gift.getUrl());
+                psts.setBoolean(6, gift.getReserved());
             }
 
             psts.executeUpdate();

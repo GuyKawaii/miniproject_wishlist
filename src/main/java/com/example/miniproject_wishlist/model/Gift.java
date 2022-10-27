@@ -5,19 +5,22 @@ public class Gift {
     private String giftName;
     private double price;
     private String url;
+    private boolean isReserved;
 
-    public Gift(String giftName, double price, String url){
+    public Gift(String giftName, double price, String url, boolean isReserved){
         giftID = null;
         setGiftName(giftName);
         setPrice(price);
         setUrl(url);
+        setReserved(isReserved);
     }
 
-    public Gift(int giftID, String giftName, double price, String url){
+    public Gift(int giftID, String giftName, double price, String url, boolean isReserved){
         setGiftID(giftID);
         setGiftName(giftName);
         setPrice(price);
         setUrl(url);
+        setReserved(isReserved);
     }
 
     public Integer getGiftID() {

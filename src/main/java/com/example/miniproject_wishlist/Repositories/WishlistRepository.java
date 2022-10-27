@@ -226,7 +226,6 @@ public class WishlistRepository {
         try {
             psts = con.prepareStatement("DELETE FROM gifts WHERE giftID = ?;");
             psts.setInt(1, giftID);
-
             psts.executeUpdate();
 
         } catch (SQLException e) {
@@ -251,7 +250,9 @@ public class WishlistRepository {
                         resultSet.getInt("giftID"),
                         resultSet.getString("giftName"),
                         resultSet.getDouble("price"),
-                        resultSet.getString("url"));
+                        resultSet.getString("url"),
+                        resultSet.getBoolean("isReserved")
+                );
             }
 
         } catch (SQLException e) {

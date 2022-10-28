@@ -20,11 +20,6 @@ public class Wishlist {
         setListName(listName);
     }
 
-    public Wishlist(String listName) {
-        listID = null;
-        setListName(listName);
-    }
-
     public Integer getListID() {
         return listID;
     }

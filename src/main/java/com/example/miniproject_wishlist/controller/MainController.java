@@ -24,6 +24,7 @@ public class MainController {
         return "index";
     }
 
+    /*
     @GetMapping("/myWishlists")
     public String myWishlists(@RequestParam String email, Model model) {
 
@@ -34,6 +35,26 @@ public class MainController {
         else {
 
         List<Wishlist> wishLists = wishlistRepository.returnAllWishlistsFromEmail(email);
+
+            model.addAttribute("giftLists", wishLists);
+            model.addAttribute("email", email);
+
+            return "myWishlists";
+        }
+    }
+    */
+    @GetMapping("/myWishlists")
+    public String myWishlists(@RequestParam String email, Model model) {
+        User user = null;
+        user = wishlistRepository.getUser(email);
+
+        if (user == null) {
+            model.addAttribute("notExistingEmail", email);
+            return "index";
+        }
+        else {
+
+            List<Wishlist> wishLists = wishlistRepository.returnAllWishlistsFromEmail(email);
 
             model.addAttribute("giftLists", wishLists);
             model.addAttribute("email", email);

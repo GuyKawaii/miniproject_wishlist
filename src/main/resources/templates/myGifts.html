@@ -10,26 +10,32 @@
 
 
 <button onclick="history.back()" class="backButton">Back</button>
-
+<br><br>
 <div class="createNewGift">
 <form method="POST" action="/myGifts/newGift">
     <h4>Create a wish:</h4>
     <label for="name">Please enter the item name</label><br>
-    <input type="text" name="name" id="name" required/><span class="required"> *</span><br>
+    <input type="text" name="name" id="name" required placeholder="Item Name"/><span class="required"> *</span><br>
     <label for="price">Please enter the price of the item</label><br>
-    <input type="number" name="price" id="price" required><br>
+    <input type="number" name="price" id="price" required placeholder="Price"><br>
     <label for="link">Please enter the link of the item</label><br>
-    <input type="text" name="link" id="link" required><br><br>
+    <input type="text" name="link" id="link" required placeholder="Link"><br><br>
     <input type="submit">
     <input type="hidden" name="oldListID" th:value="${oldListID}">
 </form>
 </div>
 
-<a th:href="'/shareGifts?listID=' + ${oldListID}">share link</a>
+<a th:href="'/shareGifts?listID=' + ${oldListID}" class="shareLink">share link</a>
 
 <br><br>
 <div class="wishes">
-    <table>
+    <table id="savedGifts">
+        <tr class="header">
+            <th>Gift</th>
+            <th>Price</th>
+            <th>Link</th>
+            <th>Delete</th>
+        </tr>
         <tr th:each="gift: ${gifts}">
             <td th:text="${gift.giftName}"/>
             <td th:text="${gift.price}"/>

@@ -13,7 +13,7 @@
         <h4 th:text="'Wishlists for ' + ${email}"></h4>
         <h4>Create a wishlist:</h4>
         <label for="listName">Please enter the name of your wishlist</label><br>
-        <input type="text" name="listName" id="listName" required/> <br>
+        <input type="text" name="listName" id="listName" required placeholder="Wishlist name"/> <br>
         <input type="submit">
         <input type="hidden" name="email" th:value="${email}">
     </form>

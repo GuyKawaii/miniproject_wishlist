@@ -1,7 +1,8 @@
 body {
     /*text-align: center;*/
     background: aliceblue;
-    margin-left: 20px;
+    margin: auto;
+    width: 50%;
 }
 
 #content {
@@ -25,25 +26,11 @@ a:hover{
 input{
     border: 0;
     box-shadow:0 0 15px 4px rgba(0,0,0,0.1);
-    border-radius: 7px;
-}
-
-
-
-.createNewGift {
-    background: rgba(202, 211, 221, 0.5);
-    box-sizing: border-box;
-    border-radius: 30px;
-    width: 260px;
-    height: 230px;
-    padding-left: 15px;
-    padding-bottom: 2px;
-    padding-top: 2px;
-    text-align: left;
+    border-radius: 6px;
+    cursor: auto;
 }
 
 button {
-    margin-left: 20px;
     background-color: #fff;
     border: 1px solid #d5d9d9;
     border-radius: 8px;
@@ -72,4 +59,65 @@ button:focus {
     border-color: #008296;
     box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
     outline: 0;
+}
+
+.backButton {
+    top: 10px;
+}
+
+.createNewGift {
+    background: rgba(202, 211, 221, 0.5);
+    box-sizing: border-box;
+    border-radius: 30px;
+    height: 230px;
+    padding-left: 15px;
+    padding-bottom: 2px;
+    padding-top: 2px;
+    text-align: left;
+    width: 50%;
+    margin: auto;
+}
+
+.shareLink {
+    top: 15px;
+    font-size: 18px;
+    right: 27.5%;
+    position: absolute;
+}
+
+.wishes {
+    margin: auto;
+    width: 50%;
+    border: 1px solid black;
+    border-radius: 5px;
+    border-collapse: collapse;
+    padding: 1px;
+}
+
+#savedGifts {
+    border-collapse: collapse;
+    width: 100%;
+    border: 0 solid aliceblue;
+}
+
+#savedGifts tr:nth-child(even){
+    background-color: rgba(213, 217, 217, 0.5);
+}
+
+#savedGifts tr:hover {
+    background-color: #dddd;
+}
+
+#savedGifts th {
+    padding: 8px;
+    text-align: left;
+    background-color: aliceblue;
+    color: black;
+    border-bottom: 1px solid black;
+}
+
+#savedGifts td {
+    padding-left: 8px;
+    padding-right: 8px;
+    text-align: left;
 }

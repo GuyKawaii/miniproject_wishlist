@@ -30,7 +30,7 @@ public class MainController {
     public String myWishlists(@RequestParam String email, Model model) {
 
         if (wishlistRepository.createUser(new User(email, ""))) {
-            model.addAttribute("existingEmail", email);
+            model.addAttribute("notExistingEmail", email);
             return "index";
         }
         else {
@@ -150,8 +150,10 @@ public class MainController {
         // check if valid redirect
         if (giftList != null)
             return "redirect:/shareGifts?listID=" + listID;
-        else
-            return "redirect:/";
+        else {
+            model.addAttribute("listIDNonExisting", listID);
+            return "index";
+        }
     }
 
 

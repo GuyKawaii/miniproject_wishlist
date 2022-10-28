@@ -8,9 +8,9 @@
 <body>
 
 
-<button onclick="history.back()">Back</button>
+<button onclick="history.back()" class="backButton">Back</button>
 
-
+<div class="createNewGift">
 <form method="POST" action="/myGifts/newGift">
     <h4>Create a wish:</h4>
     <label for="name">Please enter the item name</label><br>
@@ -22,6 +22,7 @@
     <input type="submit">
     <input type="hidden" name="oldListID" th:value="${oldListID}">
 </form>
+</div>
 
 <a th:href="'/shareGifts?listID=' + ${oldListID}">share link</a>
 

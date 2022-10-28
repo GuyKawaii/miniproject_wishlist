@@ -1,6 +1,7 @@
 body {
     /*text-align: center;*/
     background: aliceblue;
+    margin-left: 20px;
 }
 
 #content {
@@ -19,4 +20,56 @@ a:hover{
 
 .error {
     color: red;
+}
+
+input{
+    border: 0;
+    box-shadow:0 0 15px 4px rgba(0,0,0,0.1);
+    border-radius: 7px;
+}
+
+
+
+.createNewGift {
+    background: rgba(202, 211, 221, 0.5);
+    box-sizing: border-box;
+    border-radius: 30px;
+    width: 260px;
+    height: 230px;
+    padding-left: 15px;
+    padding-bottom: 2px;
+    padding-top: 2px;
+    text-align: left;
+}
+
+button {
+    margin-left: 20px;
+    background-color: #fff;
+    border: 1px solid #d5d9d9;
+    border-radius: 8px;
+    box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
+    box-sizing: border-box;
+    color: #0f1111;
+    cursor: pointer;
+    display: inline-block;
+    line-height: 29px;
+    padding: 0 10px 0 11px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    width: 100px;
+}
+
+button:hover {
+    background-color: #f7fafa;
+}
+
+button:focus {
+    border-color: #008296;
+    box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
+    outline: 0;
 }

@@ -30,7 +30,7 @@ public class WishlistRepository {
             psts.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println(e);
+            //System.out.println(e);
             return false;
         }
 

@@ -12,3 +12,10 @@ body {
 .required {
     color: red;
 }
+
+.emailExiErrorError {
+    color: red;
+}
+.emailDoesentExistErrorErrorError {
+    color: red;
+}

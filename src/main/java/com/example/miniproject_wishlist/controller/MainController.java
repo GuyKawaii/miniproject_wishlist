@@ -29,12 +29,19 @@ public class MainController {
     @GetMapping("/myWishlists")
     public String myWishlists(@RequestParam String email, Model model) {
 
-        List<GiftList> wishLists = wishlistRepository.returnAllGiftListsFromEmail(email);
+        if (wishlistRepository.createUser(new User(email, ""))) {
+            model.addAttribute("existingEmail", email);
+            return "index";
+        }
+        else {
 
-        model.addAttribute("giftLists", wishLists);
-        model.addAttribute("email", email);
+            List<GiftList> wishLists = wishlistRepository.returnAllGiftListsFromEmail(email);
 
-        return "myWishlists";
+            model.addAttribute("giftLists", wishLists);
+            model.addAttribute("email", email);
+
+            return "myWishlists";
+        }
     }
 
     @GetMapping("/myGifts")
@@ -150,13 +157,22 @@ public class MainController {
 
     @PostMapping("/createUser")
     public String createUser(WebRequest dataFromForm, Model model) {
-        // Create user i database with name and email
-        //todo læg koden ind i service
         String email = dataFromForm.getParameter("email");
         String userName = dataFromForm.getParameter("name");
-        wishlistRepository.createUser(new User(email, userName));
 
-        model.addAttribute("email", email);
+        if (!wishlistRepository.createUser(new User(email, userName))) {
+            model.addAttribute("existingEmail", email);
+            return "index";
+        }
+        else {
+            wishlistRepository.createUser(new User(email, userName));
+
+
+            // Create user i database with name and email
+            //todo læg koden ind i service
+
+            model.addAttribute("email", email);
+        }
 
         return "redirect:/myWishlists?email=" + email;
     }

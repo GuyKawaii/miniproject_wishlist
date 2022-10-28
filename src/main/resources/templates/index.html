@@ -17,6 +17,7 @@
     <label for="email">Please enter your e-mail</label><br>
     <input type="text" name="email" id="email" pattern=".*[@]+.*" required/><br><br>
     <input type="submit">
+<div class="emailExistError" th:if="${existingEmail != null}" role="alert">Email already exists</div>
 </form>
 <br><br>
 <form method="GET" action="/myWishlists">
@@ -24,6 +25,7 @@
     <label for="emailLog">Please enter your e-mail</label><br>
     <input type="text" name="email" id="emailLog" pattern=".*[@]+.*" required/><br><br>
     <input type="submit">
+<div class="emailDoesentExistError" th:if="${existingEmail != null}" role="alert">Email doesen't exist</div>
 </form>
 <br><br>
 <form method="POST" action="/findWishlistAsGuest">

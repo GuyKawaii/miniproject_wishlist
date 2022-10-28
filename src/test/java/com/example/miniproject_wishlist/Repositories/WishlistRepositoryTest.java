@@ -1,8 +1,7 @@
 package com.example.miniproject_wishlist.Repositories;
 
-import com.example.miniproject_wishlist.model.GiftList;
+import com.example.miniproject_wishlist.model.Wishlist;
 import com.example.miniproject_wishlist.model.User;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -46,16 +45,16 @@ class WishlistRepositoryTest {
 
         String testListName = "testGiftList";
         int testListID = 1;
-        GiftList expectedGiftList  = new GiftList(testListID, testEmail, testListName);
+        Wishlist expectedGiftList  = new Wishlist(testListID, testEmail, testListName);
 
 
         // ### reset database ###
         wishlistRepository.createUser(expected);
-        wishlistRepository.deleteGiftList(testListID);
+        wishlistRepository.deleteWishlist(testListID);
 
         // # add giftList #
-        wishlistRepository.createGiftList(expectedGiftList);
-        GiftList actualGiftList = wishlistRepository.getGiftList(testListID);
+        wishlistRepository.createWishlist(expectedGiftList);
+        Wishlist actualGiftList = wishlistRepository.getWishlist(testListID);
 
         // recall of giftList
         assertEquals(expectedGiftList.getListID(), actualGiftList.getListID());
@@ -64,10 +63,10 @@ class WishlistRepositoryTest {
 
 
         // # delete giftList #
-        wishlistRepository.deleteGiftList(testListID);
+        wishlistRepository.deleteWishlist(testListID);
 
         // recall of removed giftList
-        GiftList actualRemoved =  wishlistRepository.getGiftList(testListID);
+        Wishlist actualRemoved =  wishlistRepository.getWishlist(testListID);
         assertNull(actualRemoved);
     }
 
@@ -81,7 +80,7 @@ class WishlistRepositoryTest {
 
         String testListName = "testGiftList";
         int testListID = 1;
-        GiftList expectedGiftList  = new GiftList(testListID, testEmail, testListName);
+        Wishlist expectedGiftList  = new Wishlist(testListID, testEmail, testListName);
 
 
 

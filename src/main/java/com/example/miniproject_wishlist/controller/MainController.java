@@ -2,8 +2,8 @@ package com.example.miniproject_wishlist.controller;
 
 import com.example.miniproject_wishlist.Repositories.WishlistRepository;
 import com.example.miniproject_wishlist.model.Gift;
-import com.example.miniproject_wishlist.model.GiftList;
 import com.example.miniproject_wishlist.model.User;
+import com.example.miniproject_wishlist.model.Wishlist;
 import com.example.miniproject_wishlist.service.WishlistService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,7 +35,7 @@ public class MainController {
         }
         else {
 
-            List<GiftList> wishLists = wishlistRepository.returnAllGiftListsFromEmail(email);
+        List<Wishlist> wishLists = wishlistRepository.returnAllWishlistsFromEmail(email);
 
             model.addAttribute("giftLists", wishLists);
             model.addAttribute("email", email);
@@ -48,7 +48,7 @@ public class MainController {
     public String myGifts(@RequestParam int listID, Model model) {
 
         List<Gift> gifts = wishlistRepository.returnGiftsFromList(listID);
-        GiftList giftList = wishlistRepository.getGiftList(listID);
+        Wishlist giftList = wishlistRepository.getWishlist(listID);
 
         model.addAttribute("listName", giftList.getListName());
         model.addAttribute("oldListID", listID);
@@ -61,7 +61,7 @@ public class MainController {
     public String shareGift(@RequestParam int listID, Model model) {
 
         List<Gift> gifts = wishlistRepository.returnGiftsFromList(listID);
-        GiftList giftList = wishlistRepository.getGiftList(listID);
+        Wishlist giftList = wishlistRepository.getWishlist(listID);
 
         model.addAttribute("listName", giftList.getListName());
         model.addAttribute("oldListID", listID);
@@ -121,10 +121,10 @@ public class MainController {
 
         System.out.println(listName);
         System.out.println(email);
-        GiftList giftList = new GiftList(email, listName);
+        Wishlist giftList = new Wishlist(email, listName);
 
 
-        wishlistRepository.createGiftList(giftList);
+        wishlistRepository.createWishlist(giftList);
 
 
         return "redirect:/myWishlists?email=" + email;
@@ -136,7 +136,7 @@ public class MainController {
         int listID = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("listID")));
         String email = dataFromForm.getParameter("email");
 
-        wishlistRepository.deleteGiftList(listID);
+        wishlistRepository.deleteWishlist(listID);
 
         return "redirect:/myWishlists?email=" + email;
     }
@@ -145,10 +145,10 @@ public class MainController {
     @PostMapping("/findWishlistAsGuest")
     public String findWishlistAsGuest(WebRequest dataFromForm, Model model) {
         int listID = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("listID")));
-        GiftList giftList = wishlistRepository.getGiftList(listID);
+        Wishlist wishlist = wishlistRepository.getWishlist(listID);
 
         // check if valid redirect
-        if (giftList != null)
+        if (wishlist != null)
             return "redirect:/shareGifts?listID=" + listID;
         else {
             model.addAttribute("listIDNonExisting", listID);

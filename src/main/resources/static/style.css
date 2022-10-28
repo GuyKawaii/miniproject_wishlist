@@ -9,6 +9,10 @@ body {
     margin: 0 auto;
 }
 
+a:hover{
+    border: 1px solid blue;
+}
+
 .required {
     color: red;
 }

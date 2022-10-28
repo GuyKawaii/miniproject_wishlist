@@ -17,9 +17,6 @@ a:hover{
     color: red;
 }
 
-.emailExiErrorError {
-    color: red;
-}
-.emailDoesentExistErrorErrorError {
+.error {
     color: red;
 }

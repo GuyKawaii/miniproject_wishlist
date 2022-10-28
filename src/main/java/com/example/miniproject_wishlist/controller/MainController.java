@@ -29,12 +29,19 @@ public class MainController {
     @GetMapping("/myWishlists")
     public String myWishlists(@RequestParam String email, Model model) {
 
+        if (wishlistRepository.createUser(new User(email, ""))) {
+            model.addAttribute("notExistingEmail", email);
+            return "index";
+        }
+        else {
+
         List<Wishlist> wishLists = wishlistRepository.returnAllWishlistsFromEmail(email);
 
-        model.addAttribute("giftLists", wishLists);
-        model.addAttribute("email", email);
+            model.addAttribute("giftLists", wishLists);
+            model.addAttribute("email", email);
 
-        return "myWishlists";
+            return "myWishlists";
+        }
     }
 
     @GetMapping("/myGifts")
@@ -143,8 +150,10 @@ public class MainController {
         // check if valid redirect
         if (wishlist != null)
             return "redirect:/shareGifts?listID=" + listID;
-        else
-            return "redirect:/";
+        else {
+            model.addAttribute("listIDNonExisting", listID);
+            return "index";
+        }
     }
 
 

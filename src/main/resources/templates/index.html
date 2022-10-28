@@ -16,6 +16,7 @@
     <input type="text" name="name" id="name" required><br><br>
     <label for="email">Please enter your e-mail</label><br>
     <input type="text" name="email" id="email" pattern=".*[@]+.*" required/><br><br>
+
     <input type="submit">
 <div class="emailExistError" th:if="${existingEmail != null}" role="alert">Email already exists</div>
 </form>

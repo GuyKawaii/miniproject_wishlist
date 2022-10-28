@@ -1,7 +1,7 @@
 package com.example.miniproject_wishlist.Repositories;
 
 import com.example.miniproject_wishlist.model.Gift;
-import com.example.miniproject_wishlist.model.GiftList;
+import com.example.miniproject_wishlist.model.Wishlist;
 import com.example.miniproject_wishlist.model.User;
 
 import java.sql.Connection;
@@ -75,23 +75,23 @@ public class WishlistRepository {
     }
 
 
-    // ### giftList ###
+    // ### wishList ###
     // ONLY ALLOWED to add list to already existing user
-    public boolean createGiftList(GiftList giftList) {
+    public boolean createWishlist(Wishlist wishList) {
         PreparedStatement psts = null;
 
         try {
             // with or without predefined listID;
-            if (giftList.getListID() == null) {
+            if (wishList.getListID() == null) {
                 psts = con.prepareStatement("INSERT INTO wishlists (email, listName) VALUES (?, ?);");
-                psts.setString(1, giftList.getEmail());
-                psts.setString(2, giftList.getListName());
+                psts.setString(1, wishList.getEmail());
+                psts.setString(2, wishList.getListName());
 
             } else {
                 psts = con.prepareStatement("INSERT INTO wishlists (listID, email, listName) VALUES (?, ?, ?);");
-                psts.setInt(1, giftList.getListID());
-                psts.setString(2, giftList.getEmail());
-                psts.setString(3, giftList.getListName());
+                psts.setInt(1, wishList.getListID());
+                psts.setString(2, wishList.getEmail());
+                psts.setString(3, wishList.getListName());
             }
 
             psts.executeUpdate();
@@ -103,10 +103,10 @@ public class WishlistRepository {
         return true;
     }
 
-    public boolean deleteGiftList(int giftListID) {
+    public boolean deleteWishlist(int wishListID) {
         try {
             psts = con.prepareStatement("DELETE FROM wishlists WHERE listID = ?;");
-            psts.setInt(1, giftListID);
+            psts.setInt(1, wishListID);
 
             psts.executeUpdate();
 
@@ -117,17 +117,17 @@ public class WishlistRepository {
         return true;
     }
 
-    public GiftList getGiftList(int giftListID) {
-        GiftList giftList = null;
+    public Wishlist getWishlist(int wishListID) {
+        Wishlist wishList = null;
 
         try {
             psts = con.prepareStatement("SELECT * FROM wishlists WHERE listID = ?;");
-            psts.setInt(1, giftListID);
+            psts.setInt(1, wishListID);
             ResultSet resultSet = psts.executeQuery();
 
             // add parameters listID, String email, String listName
             while (resultSet.next()) {
-                giftList = new GiftList(
+                wishList = new Wishlist(
                         resultSet.getInt("listID"),
                         resultSet.getString("email"),
                         resultSet.getString("listName"));
@@ -138,7 +138,7 @@ public class WishlistRepository {
             return null;
         }
 
-        return giftList;
+        return wishList;
     }
 
     public List<Gift> returnGiftsFromList(int listID) {
@@ -266,15 +266,15 @@ public class WishlistRepository {
     }
 
     // return all giftLists for user
-    public List<GiftList> returnAllGiftListsFromEmail(String email) {
-        List<GiftList> giftLists = new ArrayList<>();
+    public List<Wishlist> returnAllWishlistsFromEmail(String email) {
+        List<Wishlist> giftLists = new ArrayList<>();
         try {
             psts = con.prepareStatement("SELECT * FROM wishlists WHERE email = ?");
             psts.setString(1, email);
             ResultSet resultset = psts.executeQuery();
 
             while (resultset.next()) {
-                giftLists.add(new GiftList(
+                giftLists.add(new Wishlist(
                         resultset.getInt("listID"),
                         resultset.getString("email"),
                         resultset.getString("listName")
@@ -289,14 +289,14 @@ public class WishlistRepository {
     }
 
     // return ALL giftLists
-    public List<GiftList> returnAllGiftLists() {
-        List<GiftList> giftLists = new ArrayList<>();
+    public List<Wishlist> returnAllWishlists() {
+        List<Wishlist> wishLists = new ArrayList<>();
         try {
             psts = con.prepareStatement("SELECT * FROM wishlists");
             ResultSet resultset = psts.executeQuery();
 
             while (resultset.next()) {
-                giftLists.add(new GiftList(
+                wishLists.add(new Wishlist(
                         resultset.getInt("listID"),
                         resultset.getString("email"),
                         resultset.getString("listName")
@@ -306,7 +306,7 @@ public class WishlistRepository {
         } catch (Exception e) {
             System.out.print("SQL exception");
         }
-        return giftLists;
+        return wishLists;
 
     }
 

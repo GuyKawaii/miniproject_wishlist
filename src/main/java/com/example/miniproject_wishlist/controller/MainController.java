@@ -54,7 +54,7 @@ public class MainController {
         }
         else {
 
-            List<Wishlist> wishLists = wishlistRepository.returnAllWishlistsFromEmail(email);
+            List<Wishlist> wishLists = wishlistRepository.getAllWishlistsFromEmail(email);
 
             model.addAttribute("giftLists", wishLists);
             model.addAttribute("email", email);
@@ -66,7 +66,7 @@ public class MainController {
     @GetMapping("/myGifts")
     public String myGifts(@RequestParam int listID, Model model) {
 
-        List<Gift> gifts = wishlistRepository.returnGiftsFromList(listID);
+        List<Gift> gifts = wishlistRepository.getGiftsFromList(listID);
         Wishlist giftList = wishlistRepository.getWishlist(listID);
 
         model.addAttribute("listName", giftList.getListName());
@@ -79,7 +79,7 @@ public class MainController {
     @GetMapping("/shareGifts")
     public String shareGift(@RequestParam int listID, Model model) {
 
-        List<Gift> gifts = wishlistRepository.returnGiftsFromList(listID);
+        List<Gift> gifts = wishlistRepository.getGiftsFromList(listID);
         Wishlist giftList = wishlistRepository.getWishlist(listID);
 
         model.addAttribute("listName", giftList.getListName());

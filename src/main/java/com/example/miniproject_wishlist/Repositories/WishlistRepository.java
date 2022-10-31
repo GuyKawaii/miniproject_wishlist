@@ -141,7 +141,7 @@ public class WishlistRepository {
         return wishList;
     }
 
-    public List<Gift> returnGiftsFromList(int listID) {
+    public List<Gift> getGiftsFromList(int listID) {
         ArrayList<Gift> gifts = new ArrayList<>();
 
         try {
@@ -265,8 +265,8 @@ public class WishlistRepository {
         return gift;
     }
 
-    // return all giftLists for user
-    public List<Wishlist> returnAllWishlistsFromEmail(String email) {
+    // get all giftLists for user
+    public List<Wishlist> getAllWishlistsFromEmail(String email) {
         List<Wishlist> giftLists = new ArrayList<>();
         try {
             psts = con.prepareStatement("SELECT * FROM wishlists WHERE email = ?");
@@ -285,28 +285,6 @@ public class WishlistRepository {
             System.out.print("SQL exception");
         }
         return giftLists;
-
-    }
-
-    // return ALL giftLists
-    public List<Wishlist> returnAllWishlists() {
-        List<Wishlist> wishLists = new ArrayList<>();
-        try {
-            psts = con.prepareStatement("SELECT * FROM wishlists");
-            ResultSet resultset = psts.executeQuery();
-
-            while (resultset.next()) {
-                wishLists.add(new Wishlist(
-                        resultset.getInt("listID"),
-                        resultset.getString("email"),
-                        resultset.getString("listName")
-                ));
-            }
-
-        } catch (Exception e) {
-            System.out.print("SQL exception");
-        }
-        return wishLists;
 
     }
 

@@ -18,7 +18,7 @@
     <label for="email">Please enter your e-mail</label><br>
     <input type="text" name="email" id="email" pattern=".*[@]+.*" required placeholder="E-mail"/><br><br>
 
-    <input type="submit">
+    <input type="submit" value="Create">
 <div class="error" th:if="${existingEmail != null}" role="alert">Email already exists</div>
 </form>
 <br><br>
@@ -26,7 +26,7 @@
     <h3>Log-in</h3>
     <label for="emailLog">Please enter your e-mail</label><br>
     <input type="text" name="email" id="emailLog" pattern=".*[@]+.*" required placeholder="E-mail"/><br><br>
-    <input type="submit">
+    <input type="submit" value="Login">
 <div class="error" th:if="${notExistingEmail != null}" role="alert">Email doesen't exist</div>
 </form>
 <br><br>

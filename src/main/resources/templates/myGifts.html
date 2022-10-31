@@ -40,7 +40,7 @@
             <td th:text="${gift.giftName}"/>
             <td th:text="${gift.price}"/>
             <td>
-                <a th:href="${gift.url}" th:text="${gift.url}" th:target="${gift.url}"/>
+                <a style="width: 100%" th:href="${gift.url}" th:text="${gift.url}" th:target="${gift.url}"/>
             </td>
             <td>
                 <form method="POST" action="/myGifts/deleteGift">

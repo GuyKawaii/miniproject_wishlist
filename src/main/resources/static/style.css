@@ -90,7 +90,6 @@ button:focus {
     width: 50%;
     border: 1px solid black;
     border-radius: 5px;
-    border-collapse: collapse;
     padding: 1px;
 }
 
@@ -120,4 +119,6 @@ button:focus {
     padding-left: 8px;
     padding-right: 8px;
     text-align: left;
+    overflow: hidden;
+    max-width: 2em;
 }

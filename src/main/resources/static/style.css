@@ -1,8 +1,10 @@
 body {
     /*text-align: center;*/
-    background: aliceblue;
     margin: auto;
     width: 50%;
+    background-image: url("https://raw.githubusercontent.com/GuyKawaii/miniproject_wishlist/main/src/main/resources/static/26302.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 #content {
